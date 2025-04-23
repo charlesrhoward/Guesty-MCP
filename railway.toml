@@ -1,0 +1,38 @@
+# Railway project configuration for Guesty MCP Server
+# Docs: https://docs.railway.app/reference/railway-toml
+
+# ---------- Build ----------
+[build]
+# Use the Dockerfile in project root (two‑stage build)
+builder = "dockerfile"
+
+# ---------- Deploy ----------
+[deploy]
+# Port your container listens on (matches EXPOSE in Dockerfile)
+port = 3000
+# Healthcheck endpoint – Railway will poll every few seconds
+healthcheckPath = "/health"
+healthcheckTimeout = 10  # seconds
+
+# Restart on failure, unlimited retries
+restartPolicyType = "always"
+restartPolicyMaxRetries = 0
+
+# ---------- Variables ----------
+# Declare environment variables you’ll set in the Railway dashboard
+# (Values here are placeholders and **not** committed to Git if you add .gitignore rules.)
+[env]
+GUESTY_CLIENT_ID = "your_client_id_here"
+GUESTY_CLIENT_SECRET = "your_client_secret_here"
+ALLOWED_ORIGINS = "https://example.com,https://admin.example.com"
+NODE_ENV = "production"
+PORT = "3000"
+
+# ---------- Service Overrides (optional) ----------
+# If you rename the default service from “app” to something else,
+# uncomment and adjust the block below.
+#
+# [services.app]
+# startCommand = "node guesty-mcp-server.js"
+# numReplicas = 1
+# ingress = true
